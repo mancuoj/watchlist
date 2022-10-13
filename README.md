@@ -32,3 +32,9 @@ Flask 会从项目根目录的 .flaskenv 和 .env 文件读取环境变量并设
 ```
 FLASK_DEBUG=1
 ```
+
+## Jinja
+
+- [官网](https://jinja.palletsprojects.com/en/3.0.x/)
+- [过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
+- ...
