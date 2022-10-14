@@ -1,6 +1,5 @@
-# Watch List
-
-- [Flask 入门](https://tutorial.helloflask.com/)
+- [第 2 章：Hello, Flask! - Flask 入门教程](https://tutorial.helloflask.com/hello/)
+- ...
 
 ## 虚拟环境 venv
 
