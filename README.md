@@ -1,6 +1,8 @@
-# Watch List
+- [第 3 章：模板 - Flask 入门教程](https://tutorial.helloflask.com/template/)
+- [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
+- [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
+- ...
 
-- [Flask 入门](https://tutorial.helloflask.com/)
 
 ## 虚拟环境 venv
 
@@ -33,8 +35,3 @@ Flask 会从项目根目录的 .flaskenv 和 .env 文件读取环境变量并设
 FLASK_DEBUG=1
 ```
 
-## Jinja
-
-- [官网](https://jinja.palletsprojects.com/en/3.0.x/)
-- [过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
-- ...
