@@ -1,4 +1,4 @@
-- [第 3 章：模板 - Flask 入门教程](https://tutorial.helloflask.com/template/)
+- [第 4 章：静态文件 - Flask 入门教程](https://tutorial.helloflask.com/static/)
 - [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - ...
