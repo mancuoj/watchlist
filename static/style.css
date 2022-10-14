@@ -3,22 +3,32 @@
 }
 
 body {
-    margin: 0;
-
+    margin: auto;
     width: 40%;
-    max-height: 100%;
-    overflow: auto;
-
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
     font-family: 'Maple UI', sans-serif;
+    user-select: none;
 }
 
 .title {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+    position: relative;
+}
+
+.alert {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    color: green;
+    padding: 10px;
+    border-radius: 5px;
+
+    font-size: 1.5rem;
+}
+
+.alert-error {
+    color: red;
 }
 
 nav ul {
@@ -37,6 +47,39 @@ nav li a {
     font-size: 1.5rem;
 }
 
+form {
+    display: flex;
+    border: 2px solid black;
+}
+
+input {
+    width: 40%;
+    padding: 1rem;
+    border: none;
+    outline: none;
+    border-right: 2px solid black;
+
+    font-family: inherit;
+    font-size: 1.2rem;
+}
+
+.btn {
+    background-color: white;
+    color: black;
+
+    width: 20%;
+    padding: 5px;
+    border: none;
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+}
+
 .movie-list {
     margin: 0;
     padding: 0;
@@ -46,15 +89,23 @@ nav li a {
 
 .movie-list li {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 
     padding: 1rem;
     border-bottom: 1px solid #666;
     font-size: 1.2rem;
 }
 
+.movie-list {
+    border-top: none;
+}
+
 .movie-list li:last-child {
     border-bottom: none;
+}
+
+.movie-desc {
+    margin-right: auto;
 }
 
 .douban {
@@ -83,7 +134,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     body {
         width: 80%;
     }

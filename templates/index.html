@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
 
-<!-- 继承 base.html 的内容，然后重写 content 块中的内容 -->
-<!-- 如果想要追加内容，可以使用 {{ super() }} -->
 {% block content %}
+<!-- 在 <form> 标签里使用 method 属性将提交表单数据的 HTTP 请求方法指定为 POST -->
+<!-- 默认使用 GET 方法将表单数据通过 URL 提交，容易导致数据泄露，而且不适用于包含大量数据的情况 -->
+<!-- GET 请求用来获取资源，而 POST 则用来创建 / 更新资源。我们访问一个链接时会发送 GET 请求，而提交表单通常会发送 POST 请求 -->
+<!-- <input> 元素必须要指定 name 属性，否则无法提交数据，在服务器端，我们也需要通过这个 name 属性值来获取对应字段的数据 -->
+<!-- 当表单中的提交按钮被按下，浏览器会创建一个新的请求，默认发往当前 URL（在 <form> 元素使用 action 属性可以自定义目标 URL） -->
+<form method="post">
+    <input type="text" name="title" autocomplete="off" placeholder="电影名称" required>
+    <input type="text" name="year" autocomplete="off" placeholder="电影年份" required>
+    <input class="btn" type="submit" name="submit" value="添加">
+</form>
+
 <ul class="movie-list">
     {% for movie in movies %}
     <li>
-        {{ movie.title }} - {{ movie.year }}
-        <span>
-            <a class="douban" target="_blank"
-                href="https://search.douban.com/movie/subject_search?search_text={{ movie.title }}">
-                豆
-            </a>
+        <span class="movie-desc">
+            {{ movie.title }} - {{ movie.year }}
         </span>
+        <a href="{{ url_for('edit', movie_id=movie.id) }}">修改</a>
+        <a class="douban" target="_blank"
+            href="https://search.douban.com/movie/subject_search?search_text={{ movie.title }}">
+            豆
+        </a>
     </li>
     {% endfor %}
 </ul>

@@ -1,4 +1,4 @@
-- [第 6 章：模板优化 - Flask 入门教程](https://tutorial.helloflask.com/template2/)
+- [第 7 章：表单 - Flask 入门教程](https://tutorial.helloflask.com/form/)
 - [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - [Flask-SQLAlchemy 官方文档](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
@@ -217,4 +217,18 @@ def initdb(drop):
 ```html
 <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}">
 <a class="douban" href="https://search.douban.com/movie/subject_search?search_text={{ movie.title }}">
+```
+
+## request and flash
+
+- Flask 会在请求触发后把请求信息放到 request 对象里，只能在视图函数内部调用它
+- 它包含请求相关的所有信息，比如请求的路径（request.path）、请求的方法（request.method）、表单数据（request.form）、查询字符串（request.args）等
+- flash() 函数在内部会把消息存储到 Flask 提供的 session 对象里
+- session 用来在请求间存储数据，它会把数据签名后存储到浏览器的 Cookie 中
+- 在模板中使用 get_flashed_messages() 函数获取消息
+- 所以我们需要设置签名所需的密钥：
+
+```python
+app.config['SECRET_KEY'] = 'dev'  # 等同于 app.secret_key = 'dev'
+# 这个密钥的值在开发时可以随便设置。基于安全的考虑，在部署时应该设置为随机字符，且不应该明文写在代码里
 ```
