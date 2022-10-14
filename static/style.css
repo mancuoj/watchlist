@@ -14,11 +14,10 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    font-family: 'Maple Hand', sans-serif;
+    font-family: 'Maple UI', sans-serif;
 }
 
 .title {
-    color: rgb(0, 112, 192);
     font-size: 2.2rem;
 }
 
@@ -56,10 +55,6 @@ nav li a {
 
 .movie-list li:last-child {
     border-bottom: none;
-}
-
-.movie-list li:hover {
-    background-color: rgb(0, 112, 192, 0.1);
 }
 
 .douban {
