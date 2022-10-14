@@ -5,34 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{ name }}'s Watchlist </title>
-    <!-- 引入静态文件需要给出资源所在的 URL，通过 Flask 提供的 url_for() 函数来生成 -->
-    <!-- url_for() 的用法，传入端点值（视图函数的名称）和参数，模板中无需导入 -->
-    <!-- 对于静态文件，需要传入的端点值是 static，同时传入相对于 static 文件夹的文件路径 -->
-    <!-- 所以该行返回 /static/images/favicon.png -->
+    <title> {{ user.name }}'s Watchlist </title>
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <!-- 标题 -->
     <h2 class="title">
-        <img class="logo" src="{{ url_for('static', filename='images/favicon.png') }}" alt="logo">
-        {{ name }}'s Watchlist
+        {{ user.name }}'s Watchlist
     </h2>
 
-    <!-- 电影列表 -->
-    <p> {{ movies|length }} Titles </p>
     <ul class="movie-list">
         {% for movie in movies %}
         <li> {{ movie.title }} - {{ movie.year }} </li>
         {% endfor %}
     </ul>
 
-    <!-- 动图 -->
-    <img class="sddl" src="{{ url_for('static', filename='images/sddl.gif') }}" alt="说的道理">
-
-    <!-- 页脚 -->
     <footer>
         <small>
             &copy; 2022

@@ -18,16 +18,12 @@ body {
 }
 
 .title {
-    display: inline-flex;
-    font-size: 2rem;
-}
-
-.logo {
-    width: 40px;
-    margin-right: 10px;
+    color: rgb(0, 112, 192);
+    font-size: 2.5rem;
 }
 
 .movie-list {
+    margin: 0;
     padding: 0;
     list-style: none;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
@@ -48,15 +44,10 @@ body {
     background-color: rgb(0, 112, 192, 0.2);
 }
 
-.sddl {
-    display: block;
-    margin: 1.5rem auto;
-    height: 120px;
-}
-
 footer {
-    color: rgb(88, 88, 88);
+    margin-top: 1.5rem;
     text-align: center;
+    font-size: 1.4rem;
 }
 
 footer a {
