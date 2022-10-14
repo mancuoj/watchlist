@@ -1,4 +1,4 @@
-- [第 5 章：数据库 - Flask 入门教程](https://tutorial.helloflask.com/database/#sqlalchemy)
+- [第 6 章：模板优化 - Flask 入门教程](https://tutorial.helloflask.com/template2/)
 - [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - [Flask-SQLAlchemy 官方文档](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
@@ -212,3 +212,9 @@ def initdb(drop):
 >>> db.session.commit()  # 提交改动
 ```
 
+## imdb or douban
+
+```html
+<a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}">
+<a class="douban" href="https://search.douban.com/movie/subject_search?search_text={{ movie.title }}">
+```

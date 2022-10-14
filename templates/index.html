@@ -1,32 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{ user.name }}'s Watchlist </title>
-    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-
-<body>
-    <h2 class="title">
-        {{ user.name }}'s Watchlist
-    </h2>
-
-    <ul class="movie-list">
-        {% for movie in movies %}
-        <li> {{ movie.title }} - {{ movie.year }} </li>
-        {% endfor %}
-    </ul>
-
-    <footer>
-        <small>
-            &copy; 2022
-            <a href="https://github.com/mancuoj/watchlist">GitHub</a>
-        </small>
-    </footer>
-</body>
-
-</html>
+<!-- 继承 base.html 的内容，然后重写 content 块中的内容 -->
+<!-- 如果想要追加内容，可以使用 {{ super() }} -->
+{% block content %}
+<ul class="movie-list">
+    {% for movie in movies %}
+    <li>
+        {{ movie.title }} - {{ movie.year }}
+        <span>
+            <a class="douban" target="_blank"
+                href="https://search.douban.com/movie/subject_search?search_text={{ movie.title }}">
+                豆
+            </a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}

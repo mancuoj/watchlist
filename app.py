@@ -16,7 +16,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = prefix + os.path.join(app.root_path, "da
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-# 创建模型类，程序只有一个用户，所以没有将 User 表和 Movie 表建立关联
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
@@ -28,21 +28,17 @@ class Movie(db.Model):
     year = db.Column(db.String(4))
 
 
-# 自定义命令行命令，设置选项，如 flask initdb
 @app.cli.command()
 @click.option("--drop", is_flag=True, help="删除后重建数据库...")
 def initdb(drop):
-    # 判断是否输入了选项
     if drop:
         db.drop_all()
     db.create_all()
     click.echo("初始化数据库...")
 
 
-# 生成虚拟数据
 @app.cli.command()
 def forge():
-    # 如果没有创建数据库就创建一个
     db.create_all()
 
     name = "Mancuoj"
@@ -50,15 +46,14 @@ def forge():
     db.session.add(user)
 
     movies = [
-        {"title": "Dead Poets Society", "year": "1989"},
-        {"title": "A Perfect World", "year": "1993"},
-        {"title": "Leon", "year": "1994"},
-        {"title": "Mahjong", "year": "1996"},
-        {"title": "Swallowtail Butterfly", "year": "1996"},
-        {"title": "King of Comedy", "year": "1999"},
-        {"title": "Devils on the Doorstep", "year": "1999"},
-        {"title": "WALL-E", "year": "2008"},
-        {"title": "The Pork of Music", "year": "2012"},
+        {"title": "死亡诗社", "year": "1989"},
+        {"title": "美丽人生", "year": "1997"},
+        {"title": "肖申克的救赎", "year": "1994"},
+        {"title": "霸王别姬 ", "year": "1993"},
+        {"title": "这个杀手不太冷", "year": "1994"},
+        {"title": "活着", "year": "1994"},
+        {"title": "无间道 ", "year": "2002"},
+        {"title": "忠犬八公的故事", "year": "2009"},
     ]
     for m in movies:
         movie = Movie(title=m["title"], year=m["year"])
@@ -68,8 +63,20 @@ def forge():
     click.echo("数据填充完毕...")
 
 
+# 将重复使用的变量统一注入到每一个模板的上下文环境中，可以直接在模板内使用
+@app.context_processor
+def inject_user():
+    user = User.query.first()
+    return dict(user=user)
+
+
+@app.errorhandler(404)  # 传入错误代码
+def page_not_found(e):  # 接受异常对象作为参数
+    # 返回模板和状态码，因为默认会使用 200 状态码代表成功，所以之前不用写
+    return render_template("404.html"), 404
+
+
 @app.route("/")
 def index():
-    user = User.query.first()
     movies = Movie.query.all()
-    return render_template("index.html", user=user, movies=movies)
+    return render_template("index.html", movies=movies)
