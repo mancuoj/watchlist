@@ -3,6 +3,7 @@
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - [Flask-SQLAlchemy 官方文档](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
 - [Flask-WTF 表单处理工具](https://flask-wtf.readthedocs.io/en/1.0.x/)
+- [Flask-Login 官方文档](https://flask-login.readthedocs.io/en/latest/)
 - ...
 
 ## 虚拟环境 venv
@@ -173,24 +174,24 @@ def initdb(drop):
 
 常用的过滤方法：
 
-| 过滤方法    | 说明                                                         |
-| :---------- | :----------------------------------------------------------- |
-| filter()    | 使用指定的规则过滤记录，返回新产生的查询对象                 |
+| 过滤方法    | 说明                                                               |
+| :---------- | :----------------------------------------------------------------- |
+| filter()    | 使用指定的规则过滤记录，返回新产生的查询对象                       |
 | filter_by() | 使用指定规则过滤记录（以关键字表达式的形式），返回新产生的查询对象 |
-| order_by()  | 根据指定条件对记录进行排序，返回新产生的查询对象             |
-| group_by()  | 根据指定条件对记录进行分组，返回新产生的查询对象             |
+| order_by()  | 根据指定条件对记录进行排序，返回新产生的查询对象                   |
+| group_by()  | 根据指定条件对记录进行分组，返回新产生的查询对象                   |
 
 常用的查询方法：
 
-| 查询方法       | 说明                                                         |
-| :------------- | :----------------------------------------------------------- |
-| all()          | 返回包含所有查询记录的列表                                   |
-| first()        | 返回查询的第一条记录，如果未找到，则返回 None                |
-| get(id)        | 传入主键值作为参数，返回指定主键值的记录，如果未找到，则返回 None |
-| count()        | 返回查询结果的数量                                           |
-| first_or_404() | 返回查询的第一条记录，如果未找到，则返回 404 错误响应        |
+| 查询方法       | 说明                                                                      |
+| :------------- | :------------------------------------------------------------------------ |
+| all()          | 返回包含所有查询记录的列表                                                |
+| first()        | 返回查询的第一条记录，如果未找到，则返回 None                             |
+| get(id)        | 传入主键值作为参数，返回指定主键值的记录，如果未找到，则返回 None         |
+| count()        | 返回查询结果的数量                                                        |
+| first_or_404() | 返回查询的第一条记录，如果未找到，则返回 404 错误响应                     |
 | get_or_404(id) | 传入主键值作为参数，返回指定主键值的记录，如果未找到，则返回 404 错误响应 |
-| paginate()     | 返回一个 Pagination 对象，可以对记录进行分页处理             |
+| paginate()     | 返回一个 Pagination 对象，可以对记录进行分页处理                          |
 
 
 
@@ -244,9 +245,43 @@ Flask 的依赖 Werkzeug 内置了用于生成和验证密码散列值的函数�
 >>> from werkzeug.security import generate_password_hash, check_password_hash
 >>> pw_hash = generate_password_hash('dog')  # 为密码 dog 生成密码散列值
 >>> pw_hash  # 查看密码散列值
-'pbkdf2:sha256:50000$mm9UPTRI$ee68ebc71434a4405a28d34ae3f170757fb424663dc0ca15198cb881edc0978f'
 >>> check_password_hash(pw_hash, 'dog')  # 检查散列值是否对应密码 dog
 True
 >>> check_password_hash(pw_hash, 'cat')  # 检查散列值是否对应密码 cat
 False
 ```
+
+## Admin
+
+```python
+# 因为程序只允许一个人使用，没有必要编写一个注册页面，只需要编写一个命令来创建管理员账户
+# flask admin
+@app.cli.command()
+@click.option('--username', prompt=True, help='The username used to login.')
+@click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True, help='The password used to login.')
+def admin(username, password):
+    """Create user."""
+    db.create_all()
+
+    user = User.query.first()
+    if user is not None:
+        click.echo('Updating user...')
+        user.username = username
+        user.set_password(password)  # 设置密码
+    else:
+        click.echo('Creating user...')
+        user = User(username=username, name='Admin')
+        user.set_password(password)  # 设置密码
+        db.session.add(user)
+
+    db.session.commit()  # 提交数据库会话
+    click.echo('Done.')
+```
+
+## 认证保护
+
+- `@login_required` 装饰器
+- `login_manager.login_view = 'login'`
+- `login_manager.login_message`
+- `current_user.is_authenticated`
+- `{% if current_user.is_authenticated %}`

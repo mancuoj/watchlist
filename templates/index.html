@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<!-- 在模板中可以直接使用 current_user 变量 -->
+{% if current_user.is_authenticated %}
 <form class="add-form" method="post">
     <input type="text" name="title" autocomplete="off" placeholder="电影名称" required>
     <input type="text" name="year" autocomplete="off" placeholder="电影年份" required>
     <input class="add-btn" type="submit" name="submit" value="添加">
 </form>
+{% endif %}
+
 
 <ul class="movie-list">
     {% for movie in movies %}
@@ -14,11 +19,15 @@
             {{ movie.title }} - {{ movie.year }}
         </span>
 
-        <a class="btn edit-btn" href="{{ url_for('edit', movie_id=movie.id) }}">修改</a>
+        {% if current_user.is_authenticated %}
+        <a class="btn edit-btn" href="{{ url_for('edit', movie_id=movie.id) }}">
+            修改
+        </a>
 
         <form class="del-form" method="post" action="{{ url_for('delete', movie_id=movie.id) }}">
             <input class="btn del-btn" type="submit" name="delete" value="删除" onclick="return confirm('确定删除？')">
         </form>
+        {% endif %}
 
         <a class="btn douban" target="_blank"
             href="https://search.douban.com/movie/subject_search?search_text={{ movie.title }}">

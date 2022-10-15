@@ -4,6 +4,16 @@ import click
 
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import (
+    LoginManager,
+    UserMixin,
+    login_user,
+    logout_user,
+    login_required,
+    current_user,
+)
+
 
 #################################################
 #                   基础配置                    #
@@ -17,8 +27,22 @@ else:
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = prefix + os.path.join(app.root_path, "data.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "dev"  # 等同于 app.secret_key = 'dev'
+app.config["SECRET_KEY"] = "dev"
 db = SQLAlchemy(app)
+login_manager = LoginManager(app)
+# 未登录的用户访问对应的 URL，Flask-Login 会把用户重定向到登录页面，并显示一个错误提示
+# 可以通过设置 login_manager.login_message 来自定义错误提示消息
+login_manager.login_view = "login"
+login_manager.login_message = "请登录！"
+
+#################################################
+#               用户加载回调函数                #
+#################################################
+@login_manager.user_loader
+def load_user(user_id):
+    user = User.query.get(int(user_id))
+    return user
+
 
 #################################################
 #                   错误处理                    #
@@ -46,9 +70,22 @@ def page_not_found(e):
 #################################################
 #                  数据模型类                   #
 #################################################
-class User(db.Model):
+class User(db.Model, UserMixin):
+    # Flask-Login 提供了一个 current_user 变量
+    # 当程序运行后，如果用户已登录， current_user 变量的值会是当前用户的用户模型类记录
+    # 继承 UserMixin 类会让会让 User 类拥有几个用于判断认证状态的属性和方法
+    # 如果当前用户已经登录，那么 current_user.is_authenticated 会返回 True， 否则返回 False
+    # 有了 current_user 变量和这几个验证方法和属性，我们可以很轻松的判断当前用户的认证状态
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
+    username = db.Column(db.String(20))
+    password_hash = db.Column(db.String(128))
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def validate_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 
 class Movie(db.Model):
@@ -58,7 +95,7 @@ class Movie(db.Model):
 
 
 #################################################
-#              将变量注入模板上下文             #
+#             将 user 注入模板上下文            #
 #################################################
 @app.context_processor
 def inject_user():
@@ -105,12 +142,43 @@ def forge():
     click.echo("数据填充完毕...")
 
 
+@app.cli.command()
+@click.option("--username", prompt=True, help="用户名 - 用于登录")
+@click.option(
+    "--password",
+    prompt=True,
+    hide_input=True,
+    confirmation_prompt=True,
+    help="密码 - 用于登录",
+)
+def admin(username, password):
+    db.create_all()
+
+    user = User.query.first()
+    if user is not None:
+        click.echo("更新管理员用户中...")
+        user.username = username
+        user.password = password
+        user.set_password(password)
+    else:
+        click.echo("创建管理员用户中...")
+        user = User(username=username, name="Admin")
+        user.set_password(password)
+        db.session.add(user)
+
+    db.session.commit()
+    click.echo("完成！")
+
+
 #################################################
 #                   添加操作                    #
 #################################################
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
+        if not current_user.is_authenticated:
+            return redirect(url_for("index"))
+
         title = request.form.get("title")
         year = request.form.get("year")
         if (
@@ -137,13 +205,13 @@ def index():
 #                   编辑操作                    #
 #################################################
 @app.route("/movie/edit/<int:movie_id>", methods=["GET", "POST"])
+@login_required
 def edit(movie_id):
     movie = Movie.query.get_or_404(movie_id)
 
     if request.method == "POST":
-        title = request.form["title"]
-        year = request.form["year"]
-
+        title = request.form.get("title")
+        year = request.form.get("year")
         if (
             not title
             or not year
@@ -167,9 +235,66 @@ def edit(movie_id):
 #                   删除操作                    #
 #################################################
 @app.route("/movie/delete/<int:movie_id>", methods=["POST"])
+@login_required
 def delete(movie_id):
     movie = Movie.query.get_or_404(movie_id)
     db.session.delete(movie)
     db.session.commit()
     flash("删除成功", "message")
     return redirect(url_for("index"))
+
+
+#################################################
+#                   用户登录                    #
+#################################################
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if not username or not password:
+            flash("无效输入", "error")
+            return redirect(url_for("login"))
+
+        user = User.query.first()
+        if username == user.username and user.validate_password(password):
+            login_user(user)
+            flash("登录成功", "message")
+            return redirect(url_for("index"))
+
+        flash("用户名或密码错误", "error")
+        return redirect(url_for("login"))
+
+    return render_template("login.html")
+
+
+#################################################
+#                   用户登出                    #
+#################################################
+@app.route("/logout")
+@login_required  # 未登录不允许查看
+def logout():
+    logout_user()
+    flash("Bye!", "message")
+    return redirect(url_for("index"))
+
+
+#################################################
+#                   用户设置                    #
+#################################################
+@app.route("/setting", methods=["GET", "POST"])
+@login_required
+def setting():
+    if request.method == "POST":
+        name = request.form.get("name")
+
+        if not name or len(name) > 20:
+            flash("无效输入", "error")
+            return redirect(url_for("setting"))
+
+        current_user.name = name
+        db.session.commit()
+        flash("设置更新成功", "message")
+        return redirect(url_for("index"))
+
+    return render_template("setting.html")
