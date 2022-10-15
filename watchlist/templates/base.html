@@ -15,17 +15,17 @@
 <body>
     <h2 class="title">
         {{ user.name }} の 电影片单
-
-        <!-- 提示信息 -->
-        {% for message in get_flashed_messages(True) %}
-        {% if message[0] == 'error' %}
-        <div class="alert alert-error">{{ message[1] }}</div>
-        {% else %}
-        <div class="alert">{{ message[1] }}</div>
-        {% endif %}
-        {% endfor %}
     </h2>
 
+    <!-- 提示信息 -->
+    {% for message in get_flashed_messages(True) %}
+    {% if message[0] == 'error' %}
+    <div class="alert alert-error">{{ message[1] }}</div>
+    {% else %}
+    <div class="alert">{{ message[1] }}</div>
+    {% endif %}
+    {% endfor %}
+    
     <nav>
         <ul>
             <li><a href={{ url_for('index') }}>主页</a></li>

@@ -8,7 +8,7 @@
 }
 
 body {
-    margin: auto;
+    margin: 50px auto 0;
     width: 40%;
     user-select: none;
 }
@@ -23,15 +23,20 @@ body {
 
 .alert {
     position: absolute;
+    top: 50%;
     right: 0;
-    bottom: 0;
+    transform: translateY(-50%);
 
-    color: green;
-    font-size: 1.4rem;
+    padding: 1rem;
+    background-color: rgb(38, 131, 29);
+    color: white;
+
+    font-size: 1.6rem;
+    writing-mode: vertical-lr;
 }
 
 .alert-error {
-    color: red;
+    background-color: rgb(241, 49, 49);
 }
 
 /****************************************************
@@ -176,6 +181,6 @@ footer a:hover {
 ****************************************************/
 @media (max-width: 1024px) {
     body {
-        width: 80%;
+        width: 70%;
     }
 }
