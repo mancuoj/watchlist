@@ -71,11 +71,6 @@ def page_not_found(e):
 #                  数据模型类                   #
 #################################################
 class User(db.Model, UserMixin):
-    # Flask-Login 提供了一个 current_user 变量
-    # 当程序运行后，如果用户已登录， current_user 变量的值会是当前用户的用户模型类记录
-    # 继承 UserMixin 类会让会让 User 类拥有几个用于判断认证状态的属性和方法
-    # 如果当前用户已经登录，那么 current_user.is_authenticated 会返回 True， 否则返回 False
-    # 有了 current_user 变量和这几个验证方法和属性，我们可以很轻松的判断当前用户的认证状态
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     username = db.Column(db.String(20))

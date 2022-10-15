@@ -1,9 +1,11 @@
-- [第 8 章：用户认证 - Flask 入门教程](https://tutorial.helloflask.com/login/)
+- [[第 9 章：测试 - Flask 入门教程](https://tutorial.helloflask.com/test/)](https://tutorial.helloflask.com/login/)
 - [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - [Flask-SQLAlchemy 官方文档](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
 - [Flask-WTF 表单处理工具](https://flask-wtf.readthedocs.io/en/1.0.x/)
 - [Flask-Login 官方文档](https://flask-login.readthedocs.io/en/latest/)
+- [Coverage.py 官方文档](https://coverage.readthedocs.io/en/6.5.0/)
+- [pytest 官方文档](https://docs.pytest.org/en/7.1.x/)
 - ...
 
 ## 虚拟环境 venv
@@ -285,3 +287,72 @@ def admin(username, password):
 - `login_manager.login_message`
 - `current_user.is_authenticated`
 - `{% if current_user.is_authenticated %}`
+
+
+
+## 单元测试
+
+单元测试指对程序中的函数等独立单元编写的测试，使用 Python 标准库中的测试框架 unittest 来编写单元测试
+
+```python
+# hello.py
+def sayhello(to=None):
+    if to:
+        return f'Hello, {to}!'
+    return 'Hello!'
+```
+
+下面是我们为这个函数编写的单元测试：
+
+```python
+# test_sayhello.py
+# python test_sayhello.py
+import unittest
+
+from hello import sayhello
+
+# 测试用例继承 unittest.TestCase 类，在这个类中创建的以 test_ 开头的方法将会被视为测试方法
+# 比如 setUp() 方法会在每个测试方法执行前被调用
+# 而 tearDown() 方法则会在每一个测试方法执行后被调用
+# 
+class SayHelloTestCase(unittest.TestCase):  # 测试用例
+
+    def setUp(self):  # 测试固件
+        pass
+
+    def tearDown(self):  # 测试固件
+        pass
+
+    def test_sayhello(self):  # 第 1 个测试
+        rv = sayhello()
+        self.assertEqual(rv, 'Hello!')
+
+    def test_sayhello_to_somebody(self):  # 第 2 个测试
+        rv = sayhello(to='Grey')
+        self.assertEqual(rv, 'Hello, Grey!')
+
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+- 一些断言方法
+  - assertEqual(a, b)
+  - assertNotEqual(a, b)
+  - assertTrue(x)
+  - assertFalse(x)
+  - assertIs(a, b)
+  - assertIsNot(a, b)
+  - assertIsNone(x)
+  - assertIsNotNone(x)
+  - assertIn(a, b)
+  - assertNotIn(a, b)
+
+```sh
+# 测试覆盖率
+pip install coverage
+coverage run --source=app test_watchlist.py
+coverage report
+coverage html
+```
+
