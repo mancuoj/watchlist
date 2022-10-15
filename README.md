@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-一个简单的用来制作电影清单的应用
+一个简单的用来制作电影清单的应用 👀
 </p>
 
 
@@ -16,6 +16,7 @@
 git clone https://github.com/mancuoj/watchlist.git
 cd watchlist
 
+python3 -m venv env
 . env/bin/activate
 pip install -r requirements.txt
 
