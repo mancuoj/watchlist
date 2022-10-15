@@ -1,1 +1,2 @@
+FLASK_APP=watchlist
 FLASK_DEBUG=1
