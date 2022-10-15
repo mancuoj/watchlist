@@ -41,18 +41,26 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    
+
     list-style: none;
     background-color: black;
 }
 
 nav li a {
     display: block;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     color: white;
 
     text-decoration: none;
     font-size: 1.5rem;
+}
+
+nav li a:hover {
+    background-color: rgba(131, 131, 131, 0.5);
+}
+
+.log-btn {
+    margin-left: auto;
 }
 
 /****************************************************
@@ -88,9 +96,10 @@ nav li a {
 }
 
 .add-form .add-btn:hover {
-    background-color: black;
+    background-color: gray;
     color: white;
 }
+
 /****************************************************
 *                    设置表单                       * 
 ****************************************************/
