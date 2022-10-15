@@ -1,7 +1,5 @@
 <p align="center">
-    <a href="" target="_blank">
-        <img src="./assets/M.png" alt="logo" height="150"/>
-    </a>
+    <img src="./assets/M.png" alt="logo" height="150"/>
 </p>
 
 <p align="center">
@@ -27,8 +25,11 @@ flask run
 
 ## 截图
 
-<img src="./assets/sc1.png" alt="logo" width="500"/>
-
+<p align="center">
+    <a href="" target="_blank">
+        <img src="./assets/sc1.png" alt="logo"/>
+    </a>
+</p>
 
 ## 感谢
 
