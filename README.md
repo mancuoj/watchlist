@@ -1,9 +1,11 @@
 <p align="center">
-    <img src="./assets/M.png" alt="logo" height="150"/>
+    <a href="https://mancuoj.pythonanywhere.com/" target="_blank">
+        <img src="./assets/M.png" alt="logo" height="150"/>
+    </a>
 </p>
 
 <p align="center">
-一个简单的用来制作电影清单的应用 👀
+Flask 入门练手小项目：电影片单
 </p>
 
 
@@ -26,7 +28,7 @@ flask run
 ## 截图
 
 <p align="center">
-    <a href="" target="_blank">
+    <a href="https://mancuoj.pythonanywhere.com/" target="_blank">
         <img src="./assets/sc1.png" alt="logo"/>
     </a>
 </p>
