@@ -1,4 +1,4 @@
-- [第 10 章：组织你的代码 - Flask](https://tutorial.helloflask.com/organize/)
+- [[第 11 章：部署上线 - Flask 入门教程](https://tutorial.helloflask.com/deploy/)](https://tutorial.helloflask.com/organize/)
 - [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - [Flask-SQLAlchemy 官方文档](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
@@ -6,6 +6,7 @@
 - [Flask-Login 官方文档](https://flask-login.readthedocs.io/en/latest/)
 - [Coverage.py 官方文档](https://coverage.readthedocs.io/en/6.5.0/)
 - [pytest 官方文档](https://docs.pytest.org/en/7.1.x/)
+- [PythonAnywhere](https://www.pythonanywhere.com/)
 - ...
 
 ## 虚拟环境 venv
@@ -386,10 +387,40 @@ from watchlist.commands import forge, initdb
 
 
 ```sh
-coverage run --source=watchlist test_watchlist.py
-coverage report
+(env) $ coverage run --source=watchlist test_watchlist.py
 
 # .flaskenv
 FLASK_APP=watchlist
+```
+
+
+
+## 部署上线
+
+```sh
+# 生成依赖列表
+pip freeze > requirements.txt
+
+# 把需要在生产环境下使用的配置改为优先从环境变量中读取，如果没有读取到，则使用默认值
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
+app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(os.path.dirname(app.root_path), os.getenv('DATABASE_FILE', 'data.db'))
+```
+
+- 以第一个配置变量为例，`os.getenv('SECRET_KEY', 'dev')` 表示读取系统环境变量 `SECRET_KEY` 的值，如果没有获取到，则使用 `dev`
+
+- 对于第二个配置变量，我们仅改动了最后的数据库文件名。在示例程序里，因为我们部署后将继续使用 SQLite，所以只需要为生产环境设置不同的数据库文件名，否则的话，你可以像密钥一样设置优先从环境变量读取整个数据库 URL
+
+在部署程序时，我们不会使用 Flask 内置的开发服务器运行程序，因此，对于写到 .env 文件的环境变量，我们需要手动使用 python-dotenv 导入。下面在项目根目录创建一个 wsgi.py 脚本，在这个脚本中加载环境变量，并导入程序实例以供部署时使用：
+
+```python
+import os
+
+from dotenv import load_dotenv
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
+
+from watchlist import app
 ```
 
