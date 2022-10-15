@@ -1,4 +1,4 @@
-- [[第 9 章：测试 - Flask 入门教程](https://tutorial.helloflask.com/test/)](https://tutorial.helloflask.com/login/)
+- [第 10 章：组织你的代码 - Flask](https://tutorial.helloflask.com/organize/)
 - [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - [Flask-SQLAlchemy 官方文档](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
@@ -356,5 +356,40 @@ coverage report
 coverage html
 ```
 
+## 使用包组织代码
 
+```sh
+mkdir watchlist
+mv static templates watchlist
+cd watchlist 
+touch __init__.py views.py errors.py models.py commands.py
+```
+
+
+
+| 模块        | 作用                     |
+| :---------- | :----------------------- |
+| __init__.py | 包构造文件，创建程序实例 |
+| views.py    | 视图函数                 |
+| errors.py   | 错误处理函数             |
+| models.py   | 模型类                   |
+| commands.py | 命令函数                 |
+
+
+
+```python
+from watchlist import app, db
+from watchlist.models import Movie, User
+from watchlist.commands import forge, initdb
+```
+
+
+
+```sh
+coverage run --source=watchlist test_watchlist.py
+coverage report
+
+# .flaskenv
+FLASK_APP=watchlist
+```
 
