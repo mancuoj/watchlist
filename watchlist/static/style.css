@@ -1,5 +1,5 @@
 :root {
-    font-family: 'Maple Hand', sans-serif;
+    font-family: 'Maple Hand', '微软雅黑', sans-serif;
     font-size: 14px;
 }
 
@@ -27,7 +27,7 @@ body {
     bottom: 0;
 
     color: green;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .alert-error {
@@ -119,6 +119,7 @@ nav li a:hover {
     padding: 0;
     list-style: none;
     border: 2px solid #333;
+    border-top: none;
 }
 
 .movie-list li {
@@ -127,11 +128,7 @@ nav li a:hover {
 
     padding: 1rem;
     border-bottom: 1px solid #666;
-    font-size: 1.2rem;
-}
-
-.movie-list {
-    border-top: none;
+    font-size: 1.4rem;
 }
 
 .movie-list li:last-child {
@@ -142,32 +139,18 @@ nav li a:hover {
     margin-right: auto;
 }
 
-.btn {
-    color: white;
-
-    margin-left: 10px;
-    padding: 4px 6px;
-    border-radius: 6px;
-
-    text-decoration: none;
-    font-family: inherit;
-    font-size: 1.3rem;
-
-    outline: none;
-    border: none;
+.icon {
+    width: 1.6rem;
+    margin: 0.3rem 0.5rem;
     cursor: pointer;
 }
 
-.edit-btn {
-    background-color: rgb(0, 112, 192);
+.icon:hover {
+    transform: scale(1.2);
 }
 
-.del-btn {
-    background-color: rgb(187, 62, 62);
-}
-
-.douban {
-    background-color: rgb(0, 119, 17);
+#del {
+    display: none;
 }
 
 /****************************************************
