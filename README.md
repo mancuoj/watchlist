@@ -2,6 +2,7 @@
 - [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - [Flask-SQLAlchemy 官方文档](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
+- [Flask-WTF 表单处理工具](https://flask-wtf.readthedocs.io/en/1.0.x/)
 - ...
 
 ## 虚拟环境 venv

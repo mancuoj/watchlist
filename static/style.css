@@ -1,3 +1,8 @@
+:root {
+    font-family: 'Maple Hand', sans-serif;
+    font-size: 14px;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,11 +10,12 @@
 body {
     margin: auto;
     width: 40%;
-
-    font-family: 'Maple UI', sans-serif;
     user-select: none;
 }
 
+/****************************************************
+*                  标题和提示信息                     * 
+****************************************************/
 .title {
     font-size: 2.5rem;
     position: relative;
@@ -21,9 +27,6 @@ body {
     bottom: 0;
 
     color: green;
-    padding: 10px;
-    border-radius: 5px;
-
     font-size: 1.5rem;
 }
 
@@ -31,11 +34,14 @@ body {
     color: red;
 }
 
+/****************************************************
+*                     导航栏                         * 
+****************************************************/
 nav ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    background-color: #333;
+    background-color: black;
 }
 
 nav li a {
@@ -47,12 +53,15 @@ nav li a {
     font-size: 1.5rem;
 }
 
-form {
+/****************************************************
+*                   添加电影表单                      * 
+****************************************************/
+.add-form {
     display: flex;
     border: 2px solid black;
 }
 
-input {
+.add-form input {
     width: 40%;
     padding: 1rem;
     border: none;
@@ -63,7 +72,7 @@ input {
     font-size: 1.2rem;
 }
 
-.btn {
+.add-form .add-btn {
     background-color: white;
     color: black;
 
@@ -72,14 +81,18 @@ input {
     border: none;
 
     text-decoration: none;
+    font-size: 1.5rem;
     cursor: pointer;
 }
 
-.btn:hover {
+.add-form .add-btn:hover {
     background-color: black;
     color: white;
 }
 
+/****************************************************
+*                    电影列表                        * 
+****************************************************/
 .movie-list {
     margin: 0;
     padding: 0;
@@ -108,17 +121,37 @@ input {
     margin-right: auto;
 }
 
-.douban {
-    background-color: rgb(0, 119, 17);
+.btn {
     color: white;
+
     margin-left: 10px;
     padding: 4px 6px;
     border-radius: 6px;
 
     text-decoration: none;
+    font-family: inherit;
     font-size: 1.3rem;
+
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
 
+.edit-btn {
+    background-color: rgb(0, 112, 192);
+}
+
+.del-btn {
+    background-color: rgb(187, 62, 62);
+}
+
+.douban {
+    background-color: rgb(0, 119, 17);
+}
+
+/****************************************************
+*                    页脚信息                        * 
+****************************************************/
 footer {
     margin-top: 1.5rem;
     text-align: center;
@@ -134,6 +167,9 @@ footer a:hover {
     text-decoration: underline;
 }
 
+/****************************************************
+*                    @media                         * 
+****************************************************/
 @media (max-width: 1024px) {
     body {
         width: 80%;

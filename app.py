@@ -79,8 +79,10 @@ def page_not_found(e):
 # 让 index 视图同时接受两种请求方式
 # 对于 GET 请求，返回渲染后的页面
 # 对于 POST 请求，获取提交的表单数据并保存
+# 当表单中的提交按钮被按下，浏览器会创建一个新的请求，默认发往当前 URL
 @app.route("/", methods=["GET", "POST"])
 def index():
+    # 当接受请求为 POST 时，处理表单数据
     if request.method == "POST":
         title = request.form.get("title")
         year = request.form.get("year")
@@ -133,3 +135,14 @@ def edit(movie_id):
         return redirect(url_for("index"))
 
     return render_template("edit.html", movie=movie)
+
+
+# 为了安全的考虑，我们一般会使用 POST 请求来提交删除请求，也就是使用表单来实现（而不是用链接）
+# 不涉及数据的传递，所以只需要接受 POST 请求
+@app.route("/movie/delete/<int:movie_id>", methods=["POST"])
+def delete(movie_id):
+    movie = Movie.query.get_or_404(movie_id)
+    db.session.delete(movie)
+    db.session.commit()
+    flash("删除成功", "message")
+    return redirect(url_for("index"))
