@@ -79,7 +79,7 @@ nav li a:hover {
     border-right: 2px solid black;
 
     font-family: inherit;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .add-form .add-btn {
@@ -149,7 +149,7 @@ nav li a:hover {
     transform: scale(1.2);
 }
 
-#del {
+.del {
     display: none;
 }
 

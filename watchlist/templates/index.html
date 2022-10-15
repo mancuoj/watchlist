@@ -25,10 +25,10 @@
         </a>
 
         <form class="del-form" method="post" action="{{ url_for('delete', movie_id=movie.id) }}">
-            <label for="del">
+            <label for="del-{{ movie.id }}">
                 <img class="icon" src="{{ url_for('static', filename='images/del.png') }}" alt="del">
             </label>
-            <input id="del" type="submit" name="delete" onclick="return confirm('确定删除？')">
+            <input id="del-{{ movie.id }}" class="del" type="submit" name="delete" onclick="return confirm('确定删除？')">
         </form>
         {% endif %}
 
