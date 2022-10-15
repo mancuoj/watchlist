@@ -71,9 +71,24 @@ def inject_user():
     return dict(user=user)
 
 
+@app.errorhandler(400)
+def page_not_found(e):
+    return render_template("error/400.html"), 400
+
+
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html"), 404
+    return render_template("error/404.html"), 404
+
+
+@app.errorhandler(405)
+def page_not_found(e):
+    return render_template("error/405.html"), 405
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template("error/500.html"), 500
 
 
 # 让 index 视图同时接受两种请求方式
