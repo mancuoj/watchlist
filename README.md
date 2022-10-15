@@ -1,4 +1,4 @@
-- [第 7 章：表单 - Flask 入门教程](https://tutorial.helloflask.com/form/)
+- [第 8 章：用户认证 - Flask 入门教程](https://tutorial.helloflask.com/login/)
 - [Jinja 官网](https://jinja.palletsprojects.com/en/3.0.x/)
 - [Jinja 过滤器](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
 - [Flask-SQLAlchemy 官方文档](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
@@ -232,4 +232,21 @@ def initdb(drop):
 ```python
 app.config['SECRET_KEY'] = 'dev'  # 等同于 app.secret_key = 'dev'
 # 这个密钥的值在开发时可以随便设置。基于安全的考虑，在部署时应该设置为随机字符，且不应该明文写在代码里
+```
+
+## 安全存储密码
+
+把密码明文存储在数据库中是极其危险的，假如攻击者窃取了你的数据库，那么用户的账号和密码就会被直接泄露。更保险的方式是对每个密码进行计算生成独一无二的密码散列值，这样即使攻击者拿到了散列值，也几乎无法逆向获取到密码。
+
+Flask 的依赖 Werkzeug 内置了用于生成和验证密码散列值的函数，`werkzeug.security.generate_password_hash()` 用来为给定的密码生成密码散列值，而 `werkzeug.security.check_password_hash()` 则用来检查给定的散列值和密码是否对应。使用示例如下所示：
+
+```python
+>>> from werkzeug.security import generate_password_hash, check_password_hash
+>>> pw_hash = generate_password_hash('dog')  # 为密码 dog 生成密码散列值
+>>> pw_hash  # 查看密码散列值
+'pbkdf2:sha256:50000$mm9UPTRI$ee68ebc71434a4405a28d34ae3f170757fb424663dc0ca15198cb881edc0978f'
+>>> check_password_hash(pw_hash, 'dog')  # 检查散列值是否对应密码 dog
+True
+>>> check_password_hash(pw_hash, 'cat')  # 检查散列值是否对应密码 cat
+False
 ```
