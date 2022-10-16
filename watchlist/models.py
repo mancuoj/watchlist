@@ -1,3 +1,4 @@
+from enum import unique
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -6,8 +7,7 @@ from watchlist import db
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20))
-    username = db.Column(db.String(20))
+    username = db.Column(db.String(20), unique=True)
     password_hash = db.Column(db.String(128))
 
     def set_password(self, password):

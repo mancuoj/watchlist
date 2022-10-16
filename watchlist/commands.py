@@ -15,12 +15,7 @@ def initdb(drop):
 
 @app.cli.command()
 def forge():
-    db.drop_all()
     db.create_all()
-
-    name = "Mancuoj"
-    user = User(name=name)
-    db.session.add(user)
 
     movies = [
         {"title": "死亡诗社", "year": "1989"},
@@ -60,7 +55,7 @@ def admin(username, password):
         user.set_password(password)
     else:
         click.echo("创建管理员用户中...")
-        user = User(username=username, name="Admin")
+        user = User(username=username)
         user.set_password(password)
         db.session.add(user)
 

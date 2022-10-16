@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<!-- 在模板中可以直接使用 current_user 变量 -->
 {% if current_user.is_authenticated %}
 <form class="add-form" method="post">
     <input type="text" name="title" autocomplete="off" placeholder="电影名称" required>
@@ -10,7 +8,6 @@
     <input class="add-btn" type="submit" name="submit" value="添加">
 </form>
 {% endif %}
-
 
 <ul class="movie-list">
     {% for movie in movies %}

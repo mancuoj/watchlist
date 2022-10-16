@@ -3,7 +3,7 @@ import sys
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 WIN = sys.platform.startswith("win")
 if WIN:
@@ -32,14 +32,6 @@ def load_user(user_id):
 
     user = User.query.get(int(user_id))
     return user
-
-
-@app.context_processor
-def inject_user():
-    from watchlist.models import User
-
-    user = User.query.first()
-    return dict(user=user)
 
 
 from watchlist import views, errors, commands

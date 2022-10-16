@@ -79,12 +79,15 @@ def login():
             flash("无效输入", "error")
             return redirect(url_for("login"))
 
-        user = User.query.first()
-        if username == user.username and user.validate_password(password):
+        user = User.query.filter_by(username=username).first()
+        if (
+            user is not None
+            and username == user.username
+            and user.validate_password(password)
+        ):
             login_user(user)
             flash("登录成功", "success")
             return redirect(url_for("index"))
-
         flash("用户名或密码错误", "error")
         return redirect(url_for("login"))
 
@@ -99,19 +102,52 @@ def logout():
     return redirect(url_for("index"))
 
 
-@app.route("/setting", methods=["GET", "POST"])
-@login_required
-def setting():
+@app.route("/register", methods=["GET", "POST"])
+def register():
     if request.method == "POST":
-        name = request.form.get("name")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        password_confirmation = request.form.get("password_confirmation")
 
-        if not name or len(name) > 20:
+        if not username or not password or len(username) > 20:
             flash("无效输入", "error")
-            return redirect(url_for("setting"))
+            return redirect(url_for("register"))
+        if password != password_confirmation:
+            flash("两次输入的密码不一致！", "error")
+            return redirect(url_for("register"))
 
-        current_user.name = name
+        user = User.query.filter_by(username=username).first()
+        if user is not None:
+            flash("用户名已存在", "error")
+            return redirect(url_for("register"))
+
+        new_user = User(username=username)
+        new_user.set_password(password)
+        db.session.add(new_user)
         db.session.commit()
-        flash("设置更新成功", "success")
+        flash("注册成功，请登录", "success")
+        return redirect(url_for("login"))
+
+    return render_template("register.html")
+
+
+@app.route("/settings", methods=["GET", "POST"])
+@login_required
+def settings():
+    if request.method == "POST":
+        username = request.form.get("username")
+        if not username or len(username) > 20:
+            flash("无效输入", "error")
+            return redirect(url_for("settings"))
+
+        user = User.query.filter_by(username=username).first()
+        if user is not None:
+            flash("用户名已存在", "error")
+            return redirect(url_for("settings"))
+
+        current_user.username = username
+        db.session.commit()
+        flash("用户名更新成功", "success")
         return redirect(url_for("index"))
 
-    return render_template("setting.html")
+    return render_template("settings.html")
