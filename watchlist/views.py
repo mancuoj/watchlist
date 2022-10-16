@@ -92,7 +92,7 @@ def login():
 
 
 @app.route("/logout")
-@login_required  # 未登录不允许查看
+@login_required
 def logout():
     logout_user()
     flash("Bye!", "message")
