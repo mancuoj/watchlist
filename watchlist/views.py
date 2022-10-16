@@ -2,7 +2,8 @@ from flask import render_template, url_for, request, redirect, flash
 from flask_login import current_user, login_required, login_user, logout_user
 
 from watchlist import app, db
-from watchlist.models import User, Movie
+from watchlist.models import User, Movie, Comment
+from watchlist.forms import CommentForm
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -151,3 +152,18 @@ def settings():
         return redirect(url_for("index"))
 
     return render_template("settings.html")
+
+
+@app.route("/comment", methods=["GET", "POST"])
+@login_required
+def comment():
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(name=current_user.username, text=form.text.data)
+        db.session.add(comment)
+        db.session.commit()
+        flash("评论成功", "success")
+        return redirect(url_for("comment"))
+
+    comments = Comment.query.all()
+    return render_template("comment.html", form=form, comments=comments)

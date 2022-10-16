@@ -3,7 +3,7 @@ import sys
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager
 
 WIN = sys.platform.startswith("win")
 if WIN:

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="add-form comment-form" method="POST">
+    {{ form.csrf_token }}
+    {{ form.text(class='comment-area', placeholder='说点什么吧...') }}
+    <input class="add-btn comment-btn" type="submit" name="submit" value="发送">
+</form>
+
+<ul class="comment-list">
+    {% for c in comments %}
+    <li>
+        <div>
+            <span class="comment-name"> {{ c.name }} </span>
+            <span class="comment-index"> #{{ c.id }} </span>
+        </div>
+
+        <div class="comment-body"> {{c.text}} </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
