@@ -3,12 +3,12 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 from watchlist import app, db
 from watchlist.models import User, Movie, Comment
-from watchlist.forms import AddMovieForm, CommentForm, LoginForm
+from watchlist.forms import MovieForm, CommentForm, LoginForm
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    form = AddMovieForm()
+    form = MovieForm()
     if form.validate_on_submit():
         title = form.title.data
         year = form.year.data
@@ -32,26 +32,21 @@ def index():
 def edit(movie_id):
     movie = Movie.query.get_or_404(movie_id)
 
-    if request.method == "POST":
-        title = request.form.get("title")
-        year = request.form.get("year")
-        if (
-            not title
-            or not year
-            or len(title) > 60
-            or len(year) != 4
-            or not year.isdigit()
-        ):
-            flash("无效输入", "error")
-            return redirect(url_for("edit", movie_id=movie_id))
+    form = MovieForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        year = form.year.data
 
-        movie.title = title
-        movie.year = year
-        db.session.commit()
-        flash("更新成功", "success")
-        return redirect(url_for("index"))
+        if year.isdigit():
+            movie.title = title
+            movie.year = year
+            db.session.commit()
+            flash("更新成功", "success")
+            return redirect(url_for("index"))
+        flash("无效输入", "error")
+        return redirect(url_for("edit", movie_id=movie_id))
 
-    return render_template("edit.html", movie=movie)
+    return render_template("edit.html", movie=movie, form=form)
 
 
 @app.route("/movie/delete/<int:movie_id>", methods=["POST"])

@@ -2,8 +2,9 @@
 
 {% block content %}
 <form class="add-form" method="post">
-    <input type="text" name="title" autocomplete="off" placeholder="电影名称" value="{{ movie.title }}" required>
-    <input type="text" name="year" autocomplete="off" placeholder="上映年份" value="{{ movie.year }}" required>
+    {{ form.hidden_tag() }}
+    {{ form.title(placeholder="电影名称", value=movie.title) }}
+    {{ form.year(placeholder="上映年份", value=movie.year) }}
     <input class="add-btn" type="submit" name="submit" value="更新">
 </form>
 {% endblock %}

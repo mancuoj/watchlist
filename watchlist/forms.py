@@ -3,7 +3,7 @@ from wtforms import TextAreaField, StringField, PasswordField
 from wtforms.validators import DataRequired, Length
 
 
-class AddMovieForm(FlaskForm):
+class MovieForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired(), Length(1, 60)])
     year = StringField("Year", validators=[DataRequired(), Length(4, 4)])
 
