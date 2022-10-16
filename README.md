@@ -16,6 +16,7 @@ Flask 入门项目：电影片单
 - [x]  设置（用于更新用户名）
 - [x]  注册（用户共享一张电影列表）
 - [x]  留言板
+- [x]  集成 Flask-WTF
 - [ ]  ...
 
 
@@ -38,7 +39,13 @@ flask run
 
 <p align="center">
     <a href="https://mancuoj.pythonanywhere.com/" target="_blank">
-        <img src="./assets/sc1.png" alt="logo"/>
+        <img src="./assets/sc1.png"/>
+    </a>
+</p>
+
+<p align="center">
+    <a href="https://mancuoj.pythonanywhere.com/" target="_blank">
+        <img src="./assets/sc2.png" />
     </a>
 </p>
 

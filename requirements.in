@@ -1,5 +1,6 @@
 flask
-python-dotenv
 flask-login
+flask-wtf
 flask-sqlalchemy
+python-dotenv
 coverage
