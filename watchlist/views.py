@@ -155,7 +155,6 @@ def settings():
 
 
 @app.route("/comment", methods=["GET", "POST"])
-@login_required
 def comment():
     form = CommentForm()
     if form.validate_on_submit():

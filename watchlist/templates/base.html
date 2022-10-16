@@ -37,9 +37,9 @@
     <nav>
         <ul>
             <li><a href={{ url_for('index') }}>主页</a></li>
+            <li><a href={{ url_for('comment') }}>留言板</a></li>
 
             {% if current_user.is_authenticated %}
-            <li><a href={{ url_for('comment') }}>留言板</a></li>
             <li><a href={{ url_for('settings') }}>设置</a></li>
             <li class="log-btn"><a href="{{ url_for('logout') }}">登出</a></li>
             {% else %}
