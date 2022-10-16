@@ -13,5 +13,17 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired(), Length(1, 128)])
 
 
+class RegisterForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired(), Length(1, 20)])
+    password = PasswordField("Password", validators=[DataRequired(), Length(1, 128)])
+    password_confirmation = PasswordField(
+        "Confirm Password", validators=[DataRequired(), Length(1, 128)]
+    )
+
+
+class SettingsForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired(), Length(1, 20)])
+
+
 class CommentForm(FlaskForm):
     text = TextAreaField("Comment", validators=[DataRequired(), Length(1, 256)])

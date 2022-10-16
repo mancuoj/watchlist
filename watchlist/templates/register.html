@@ -2,9 +2,10 @@
 
 {% block content %}
 <form class="add-form register-form" method="post">
-    <input type="text" name="username" placeholder="用户名" autofocus autocomplete="off" required>
-    <input type="password" name="password" placeholder="密码" required>
-    <input type="password" name="password_confirmation" placeholder="确认密码" required>
+    {{ form.hidden_tag() }}
+    {{ form.username(placeholder="用户名") }}
+    {{ form.password(placeholder="密码") }}
+    {{ form.password_confirmation(placeholder="确认密码") }}
     <input class="add-btn" type="submit" name="submit" value="注册">
 </form>
 {% endblock %}

@@ -1,9 +1,15 @@
-from flask import render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, redirect, flash
 from flask_login import current_user, login_required, login_user, logout_user
 
 from watchlist import app, db
 from watchlist.models import User, Movie, Comment
-from watchlist.forms import MovieForm, CommentForm, LoginForm
+from watchlist.forms import (
+    MovieForm,
+    CommentForm,
+    LoginForm,
+    RegisterForm,
+    SettingsForm,
+)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -92,14 +98,12 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-        password_confirmation = request.form.get("password_confirmation")
+    form = RegisterForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        password_confirmation = form.password_confirmation.data
 
-        if not username or not password or len(username) > 20:
-            flash("无效输入", "error")
-            return redirect(url_for("register"))
         if password != password_confirmation:
             flash("两次输入的密码不一致！", "error")
             return redirect(url_for("register"))
@@ -116,19 +120,17 @@ def register():
         flash("注册成功，请登录", "success")
         return redirect(url_for("login"))
 
-    return render_template("register.html")
+    return render_template("register.html", form=form)
 
 
 @app.route("/settings", methods=["GET", "POST"])
 @login_required
 def settings():
-    if request.method == "POST":
-        username = request.form.get("username")
-        if not username or len(username) > 20:
-            flash("无效输入", "error")
-            return redirect(url_for("settings"))
-
+    form = SettingsForm()
+    if form.validate_on_submit():
+        username = form.username.data
         user = User.query.filter_by(username=username).first()
+
         if user is not None:
             flash("用户名已存在", "error")
             return redirect(url_for("settings"))
@@ -138,7 +140,7 @@ def settings():
         flash("用户名更新成功", "success")
         return redirect(url_for("index"))
 
-    return render_template("settings.html")
+    return render_template("settings.html", form=form)
 
 
 @app.route("/comment", methods=["GET", "POST"])
