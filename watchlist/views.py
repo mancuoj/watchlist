@@ -3,35 +3,28 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 from watchlist import app, db
 from watchlist.models import User, Movie, Comment
-from watchlist.forms import CommentForm, LoginForm
+from watchlist.forms import AddMovieForm, CommentForm, LoginForm
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if request.method == "POST":
-        if not current_user.is_authenticated:
+    form = AddMovieForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        year = form.year.data
+
+        if year.isdigit():
+            movie = Movie(title=title, year=year)
+            db.session.add(movie)
+            db.session.commit()
+            flash("添加成功", "success")
             return redirect(url_for("index"))
 
-        title = request.form.get("title")
-        year = request.form.get("year")
-        if (
-            not title
-            or not year
-            or len(title) > 60
-            or len(year) != 4
-            or not year.isdigit()
-        ):
-            flash("无效输入", "error")
-            return redirect(url_for("index"))
-
-        movie = Movie(title=title, year=year)
-        db.session.add(movie)
-        db.session.commit()
-        flash("添加成功", "success")
+        flash("无效输入", "error")
         return redirect(url_for("index"))
 
     movies = Movie.query.all()
-    return render_template("index.html", movies=movies)
+    return render_template("index.html", movies=movies, form=form)
 
 
 @app.route("/movie/edit/<int:movie_id>", methods=["GET", "POST"])
