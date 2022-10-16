@@ -3,7 +3,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 from watchlist import app, db
 from watchlist.models import User, Movie, Comment
-from watchlist.forms import CommentForm
+from watchlist.forms import CommentForm, LoginForm
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -73,26 +73,25 @@ def delete(movie_id):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-        if not username or not password:
-            flash("无效输入", "error")
-            return redirect(url_for("login"))
-
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
         user = User.query.filter_by(username=username).first()
+
         if (
             user is not None
-            and username == user.username
+            and user.username == username
             and user.validate_password(password)
         ):
             login_user(user)
             flash("登录成功", "success")
             return redirect(url_for("index"))
+
         flash("用户名或密码错误", "error")
         return redirect(url_for("login"))
 
-    return render_template("login.html")
+    return render_template("login.html", form=form)
 
 
 @app.route("/logout")
