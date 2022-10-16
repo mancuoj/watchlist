@@ -17,26 +17,35 @@ body {
 *                  标题和提示信息                   * 
 ****************************************************/
 .title {
+    margin-bottom: 15px;
+
     font-size: 2.5rem;
     position: relative;
 }
 
 .alert {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
+    position: relative;
+    padding: 0.5rem 1.2rem;
+    margin-bottom: 15px;
+    border: 2px solid transparent;
 
-    padding: 1rem;
-    background-color: rgb(38, 131, 29);
-    color: white;
+    font-size: 1.5rem;
 
-    font-size: 1.6rem;
-    writing-mode: vertical-lr;
+    background-color: rgb(230, 247, 255);
+    color: rgb(24, 144, 255);
+    border-color: rgb(145, 213, 255);
 }
 
 .alert-error {
-    background-color: rgb(241, 49, 49);
+    background-color: rgb(255, 242, 240);
+    color: rgb(255, 77, 79);
+    border-color: rgb(255, 204, 199);
+}
+
+.alert-success {
+    background-color: rgb(246, 255, 237);
+    color: rgb(82, 196, 26);
+    border-color: rgb(183, 235, 143);
 }
 
 /****************************************************

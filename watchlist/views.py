@@ -26,7 +26,7 @@ def index():
         movie = Movie(title=title, year=year)
         db.session.add(movie)
         db.session.commit()
-        flash("添加成功", "message")
+        flash("添加成功", "success")
         return redirect(url_for("index"))
 
     movies = Movie.query.all()
@@ -54,7 +54,7 @@ def edit(movie_id):
         movie.title = title
         movie.year = year
         db.session.commit()
-        flash("更新成功", "message")
+        flash("更新成功", "success")
         return redirect(url_for("index"))
 
     return render_template("edit.html", movie=movie)
@@ -66,7 +66,7 @@ def delete(movie_id):
     movie = Movie.query.get_or_404(movie_id)
     db.session.delete(movie)
     db.session.commit()
-    flash("删除成功", "message")
+    flash("删除成功", "success")
     return redirect(url_for("index"))
 
 
@@ -82,7 +82,7 @@ def login():
         user = User.query.first()
         if username == user.username and user.validate_password(password):
             login_user(user)
-            flash("登录成功", "message")
+            flash("登录成功", "success")
             return redirect(url_for("index"))
 
         flash("用户名或密码错误", "error")
@@ -111,7 +111,7 @@ def setting():
 
         current_user.name = name
         db.session.commit()
-        flash("设置更新成功", "message")
+        flash("设置更新成功", "success")
         return redirect(url_for("index"))
 
     return render_template("setting.html")
