@@ -3,4 +3,3 @@ python-dotenv
 flask-login
 flask-sqlalchemy
 coverage
-black
