@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{ current_user.username }} の 电影片单 </title>
+    <title> {{ current_user.username }} の {{ _("电影片单") }} </title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% endblock head %}
@@ -14,7 +14,7 @@
 
 <body>
     <h1 class="title">
-        {{ current_user.username }} の 电影片单
+        {{ current_user.username }} の {{ _("电影片单") }}
     </h1>
 
     <!-- 提示信息 -->
@@ -36,15 +36,15 @@
 
     <nav>
         <ul>
-            <li><a href={{ url_for('index') }}>主页</a></li>
-            <li><a href={{ url_for('comment') }}>留言板</a></li>
+            <li><a href={{ url_for('index') }}> {{ _("主页") }} </a></li>
+            <li><a href={{ url_for('comment') }}> {{ _("留言板") }} </a></li>
 
             {% if current_user.is_authenticated %}
-            <li><a href={{ url_for('settings') }}>设置</a></li>
-            <li class="log-btn"><a href="{{ url_for('logout') }}">登出</a></li>
+            <li><a href={{ url_for('settings') }}> {{ _("设置") }} </a></li>
+            <li class="log-btn"><a href="{{ url_for('logout') }}"> {{ _("登出") }} </a></li>
             {% else %}
-            <li class="log-btn"><a href="{{ url_for('login') }}">登录</a></li>
-            <li><a href="{{ url_for('register') }}">注册</a></li>
+            <li class="log-btn"><a href="{{ url_for('login') }}"> {{ _("登录") }} </a></li>
+            <li><a href="{{ url_for('register') }}"> {{ _("注册") }} </a></li>
             {% endif %}
         </ul>
     </nav>
@@ -55,7 +55,7 @@
     <footer>
         <small>
             &copy; 2022
-            <a href="https://github.com/mancuoj/watchlist">GitHub</a>
+            <a href="https://github.com/mancuoj/watchlist" target="_blank">GitHub</a>
         </small>
     </footer>
 </body>

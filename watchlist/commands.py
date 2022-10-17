@@ -1,3 +1,4 @@
+import os
 import click
 
 from watchlist import app, db
@@ -18,14 +19,11 @@ def forge():
     db.create_all()
 
     movies = [
-        {"title": "死亡诗社", "year": "1989"},
-        {"title": "美丽人生", "year": "1997"},
-        {"title": "肖申克的救赎", "year": "1994"},
-        {"title": "霸王别姬 ", "year": "1993"},
-        {"title": "这个杀手不太冷", "year": "1994"},
+        {"title": "Dead Poets Society", "year": "1989"},
         {"title": "活着", "year": "1994"},
-        {"title": "无间道 ", "year": "2002"},
-        {"title": "忠犬八公的故事", "year": "2009"},
+        {"title": "霸王别姬 ", "year": "1993"},
+        {"title": "Léon: The Professional", "year": "1994"},
+        {"title": "Hachi: A Dog's Tale", "year": "2009"},
     ]
     for m in movies:
         movie = Movie(title=m["title"], year=m["year"])
@@ -61,3 +59,33 @@ def admin(username, password):
 
     db.session.commit()
     click.echo("完成！")
+
+
+@app.cli.group()
+def translate():
+    pass
+
+
+@translate.command()
+@click.argument("locale")
+def init(locale):
+    if os.system("pybabel extract -F babel.cfg -k _l -o messages.pot ."):
+        raise RuntimeError("提取失败")
+    if os.system("pybabel init -i messages.pot -d watchlist/translations -l " + locale):
+        raise RuntimeError("初始化失败")
+    os.remove("message.pot")
+
+
+@translate.command()
+def update():
+    if os.system("pybabel extract -F babel.cfg -k _l -o messages.pot ."):
+        raise RuntimeError("提取失败")
+    if os.system("pybabel update -i messages.pot -d watchlist/translations"):
+        raise RuntimeError("更新失败")
+    os.remove("messages.pot")
+
+
+@translate.command()
+def compile():
+    if os.system("pybabel compile -d watchlist/translations"):
+        raise RuntimeError("编译失败")

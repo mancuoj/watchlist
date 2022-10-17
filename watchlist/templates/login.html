@@ -3,8 +3,8 @@
 {% block content %}
 <form class="add-form" method="post">
     {{ form.hidden_tag() }}
-    {{ form.username(placeholder="用户名") }}
-    {{ form.password(placeholder="密码") }}
-    <input class="add-btn" type="submit" name="submit" value="登录">
+    {{ form.username(placeholder=_("用户名")) }}
+    {{ form.password(placeholder=_("密码")) }}
+    {{ form.submit(class="add-btn", value=_("登录")) }}
 </form>
 {% endblock %}

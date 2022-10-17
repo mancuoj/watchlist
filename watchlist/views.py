@@ -1,5 +1,6 @@
 from flask import render_template, url_for, redirect, flash
 from flask_login import current_user, login_required, login_user, logout_user
+from flask_babel import _
 
 from watchlist import app, db
 from watchlist.models import User, Movie, Comment
@@ -23,10 +24,10 @@ def index():
             movie = Movie(title=title, year=year)
             db.session.add(movie)
             db.session.commit()
-            flash("添加成功", "success")
+            flash(_("添加成功"), "success")
             return redirect(url_for("index"))
 
-        flash("无效输入", "error")
+        flash(_("无效输入"), "error")
         return redirect(url_for("index"))
 
     movies = Movie.query.all()
@@ -47,9 +48,9 @@ def edit(movie_id):
             movie.title = title
             movie.year = year
             db.session.commit()
-            flash("更新成功", "success")
+            flash(_("更新成功"), "success")
             return redirect(url_for("index"))
-        flash("无效输入", "error")
+        flash(_("无效输入"), "error")
         return redirect(url_for("edit", movie_id=movie_id))
 
     return render_template("edit.html", movie=movie, form=form)
@@ -61,7 +62,7 @@ def delete(movie_id):
     movie = Movie.query.get_or_404(movie_id)
     db.session.delete(movie)
     db.session.commit()
-    flash("删除成功", "success")
+    flash(_("删除成功"), "success")
     return redirect(url_for("index"))
 
 
@@ -79,10 +80,10 @@ def login():
             and user.validate_password(password)
         ):
             login_user(user)
-            flash("登录成功", "success")
+            flash(_("登录成功"), "success")
             return redirect(url_for("index"))
 
-        flash("用户名或密码错误", "error")
+        flash(_("用户名或密码错误"), "error")
         return redirect(url_for("login"))
 
     return render_template("login.html", form=form)
@@ -105,19 +106,19 @@ def register():
         password_confirmation = form.password_confirmation.data
 
         if password != password_confirmation:
-            flash("两次输入的密码不一致！", "error")
+            flash(_("两次输入的密码不一致！"), "error")
             return redirect(url_for("register"))
 
         user = User.query.filter_by(username=username).first()
         if user is not None:
-            flash("用户名已存在", "error")
+            flash(_("用户名已存在"), "error")
             return redirect(url_for("register"))
 
         new_user = User(username=username)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
-        flash("注册成功，请登录", "success")
+        flash(_("注册成功，请登录"), "success")
         return redirect(url_for("login"))
 
     return render_template("register.html", form=form)
@@ -132,12 +133,12 @@ def settings():
         user = User.query.filter_by(username=username).first()
 
         if user is not None:
-            flash("用户名已存在", "error")
+            flash(_("用户名已存在"), "error")
             return redirect(url_for("settings"))
 
         current_user.username = username
         db.session.commit()
-        flash("用户名更新成功", "success")
+        flash(_("用户名更新成功"), "success")
         return redirect(url_for("index"))
 
     return render_template("settings.html", form=form)
@@ -150,7 +151,7 @@ def comment():
         comment = Comment(name=current_user.username, text=form.text.data)
         db.session.add(comment)
         db.session.commit()
-        flash("评论成功", "success")
+        flash(_("评论成功"), "success")
         return redirect(url_for("comment"))
 
     comments = Comment.query.all()

@@ -4,9 +4,9 @@
 {% if current_user.is_authenticated %}
 <form class="add-form" method="post">
     {{ form.hidden_tag() }}
-    {{ form.title(placeholder="电影名称") }}
-    {{ form.year(placeholder="上映年份") }}
-    <input class="add-btn" type="submit" name="submit" value="添加">
+    {{ form.title(placeholder=_("电影名称")) }}
+    {{ form.year(placeholder=_("上映年份")) }}
+    {{ form.submit(class="add-btn", value=_("添加")) }}
 </form>
 {% endif %}
 
@@ -26,12 +26,16 @@
             <label for="del-{{ movie.id }}">
                 <img class="icon" src="{{ url_for('static', filename='images/del.png') }}" alt="del">
             </label>
-            <input id="del-{{ movie.id }}" class="del" type="submit" name="delete" onclick="return confirm('确定删除？')">
+            <input id="del-{{ movie.id }}" class="del" type="submit" name="delete" onclick="return confirm('Are you sure to delete?')">
         </form>
         {% endif %}
 
         <a target="_blank" href="https://search.douban.com/movie/subject_search?search_text={{ movie.title }}">
             <img class="icon" src="{{ url_for('static', filename='images/douban.png') }}" alt="douban">
+        </a>
+        
+        <a target="_blank" href="https://www.imdb.com/find?q={{ movie.title }}">
+            <img class="icon" src="{{ url_for('static', filename='images/imdb.png') }}" alt="imdb">
         </a>
     </li>
     {% endfor %}

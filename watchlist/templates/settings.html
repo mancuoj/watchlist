@@ -3,7 +3,7 @@
 {% block content %}
 <form class="add-form setting-form" method="post">
     {{ form.csrf_token }}
-    {{ form.username(placeholder="新的用户名", value=current_user.username) }}
-    <input class="add-btn" type="submit" name="submit" value="更新">
+    {{ form.username(placeholder=_("新的用户名"), value=current_user.username) }}
+    {{ form.submit(class="add-btn", value=_("更新")) }}
 </form>
 {% endblock %}

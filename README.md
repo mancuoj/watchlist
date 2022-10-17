@@ -10,8 +10,8 @@ Flask 入门项目：电影片单 + 留言板
 
 <p align="center">
     <a href="https://mancuoj.pythonanywhere.com/" target="_blank">在线查看</a> |
-    <a href="#截图">屏幕截图</a> |
-    <a href="https://tutorial.helloflask.com/deploy/" target="_blank">部署上线</a>
+    <a href="#截图">截图</a> |
+    <a href="https://tutorial.helloflask.com/deploy/" target="_blank">部署</a>
 </p>
 
 
@@ -22,6 +22,7 @@ Flask 入门项目：电影片单 + 留言板
 - [x]  注册 - 所有用户共享一张电影列表
 - [x]  增删改查 - flask-wtf + flask-sqlalchemy
 - [x]  留言板
+- [x]  国际化 i18n - flask-babel
 - [ ]  ...
 
 

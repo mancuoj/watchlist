@@ -4,8 +4,8 @@
 {% if current_user.is_authenticated %}
 <form class="add-form comment-form" method="POST">
     {{ form.csrf_token }}
-    {{ form.text(class='comment-area', placeholder='说点什么吧...') }}
-    <input class="add-btn comment-btn" type="submit" name="submit" value="发送">
+    {{ form.text(class='comment-area', placeholder=_('说点什么吧...')) }}
+    {{ form.submit(class="add-btn comment-btn", value=_("发送")) }}
 </form>
 {% endif %}
 
