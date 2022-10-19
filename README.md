@@ -1,4 +1,3 @@
-<br>
 <p align="center">
     <a href="https://mancuoj.pythonanywhere.com/" target="_blank">
         <img src="./assets/M.png" alt="logo" height="150"/>
@@ -6,27 +5,22 @@
 </p>
 
 
-<h1 align="center">
-    Watchlist with comment area
-</h1>
-
-
 <p align="center">
-    <a href="https://mancuoj.pythonanywhere.com/" target="_blank">Online Demo</a> |
-    <a href="#screenshot">Screenshots</a> |
+    <a href="https://mancuoj.pythonanywhere.com/" target="_blank">Live Demo</a> |
+    <a href="#screenshots">Screenshots</a> |
     <a href="./README_zh.md">中文文档</a>
 </p>
 
 
 ## Features
 
-- [x]  Login & logout - flask-login
-- [x]  Settings - update username
-- [x]  Register - all users share one movie list
-- [x]  CRUD - flask-wtf + flask-sqlalchemy
-- [x]  Comment Area
-- [x]  i18n - flask-babel
-- [ ]  ...
+- [x]  **Login & Logout** - flask-login
+- [x]  **Settings** - update username
+- [x]  **Register** - all users share one movie list
+- [x]  **CRUD** - flask-wtf + flask-sqlalchemy
+- [x]  **Comment Area**
+- [x]  **i18n** - flask-babel
+- [x]  😘
 
 
 ## Usage

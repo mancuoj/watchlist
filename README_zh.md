@@ -1,13 +1,8 @@
-<br>
 <p align="center">
     <a href="https://mancuoj.pythonanywhere.com/" target="_blank">
         <img src="./assets/M.png" alt="logo" height="150"/>
     </a>
 </p>
-
-<h1 align="center">
-    电影片单 & 留言板
-</h1>
 
 <p align="center">
     <a href="https://mancuoj.pythonanywhere.com/" target="_blank">在线查看</a> |
@@ -19,13 +14,13 @@
 
 ## 功能
 
-- [x]  登录登出 - flask-login
-- [x]  设置 - 用于更新用户名
-- [x]  注册 - 所有用户共享一张电影列表
-- [x]  增删改查 - flask-wtf + flask-sqlalchemy
-- [x]  留言板
-- [x]  国际化 i18n - flask-babel
-- [ ]  ...
+- [x]  **登录登出** - flask-login
+- [x]  **设置** - 用于更新用户名
+- [x]  **注册** - 所有用户共享一张电影列表
+- [x]  **增删改查** - flask-wtf + flask-sqlalchemy
+- [x]  **留言板**
+- [x]  **国际化 i18n** - flask-babel
+- [x]  😘
 
 
 ## 运行
