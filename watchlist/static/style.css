@@ -1,9 +1,11 @@
 :root {
-    font-family: 'Maple Hand', '微软雅黑', sans-serif;
-    font-size: 14px;
+    font-family: "LXGW WenKai Screen", sans-serif;
+    font-size: 16px;
 }
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -14,15 +16,18 @@ body {
 }
 
 /****************************************************
-*                  标题和提示信息                   * 
+*                      标题                         * 
 ****************************************************/
 .title {
-    margin-bottom: 15px;
+    margin-bottom: 2rem;
 
     font-size: 2.5rem;
     position: relative;
 }
 
+/****************************************************
+*                    提示信息                       * 
+****************************************************/
 .alert {
     position: relative;
     padding: 0.5rem 1.2rem;
@@ -78,7 +83,39 @@ nav li a:hover {
 }
 
 /****************************************************
-*                   添加电影表单                    * 
+*                    页脚信息                       * 
+****************************************************/
+footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+footer a {
+    color: rgb(0, 112, 192);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/****************************************************
+*                    @media                         *
+****************************************************/
+@media (max-width: 1024px) {
+    :root {
+        font-size: 10px;
+    }
+
+    body {
+        width: 80%;
+    }
+}
+
+
+/****************************************************
+*                      表单                         * 
 ****************************************************/
 .add-form {
     display: flex;
@@ -114,9 +151,6 @@ nav li a:hover {
     color: white;
 }
 
-/****************************************************
-*                    设置表单                       * 
-****************************************************/
 .setting-form input {
     width: 80%;
 }
@@ -150,7 +184,7 @@ nav li a:hover {
 }
 
 /****************************************************
-*                    三个图标                       * 
+*                      图标                         * 
 ****************************************************/
 .icon {
     width: 1.6rem;
@@ -219,35 +253,4 @@ nav li a:hover {
 .comment-body {
     margin-top: 8px;
     overflow-wrap: break-word;
-}
-
-/****************************************************
-*                    页脚信息                       * 
-****************************************************/
-footer {
-    margin-top: 1.5rem;
-    text-align: center;
-    font-size: 1.4rem;
-}
-
-footer a {
-    color: rgb(0, 112, 192);
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-/****************************************************
-*                    @media                         * 
-****************************************************/
-@media (max-width: 1024px) {
-    :root {
-        font-size: 12px;
-    }
-
-    body {
-        width: 80%;
-    }
 }

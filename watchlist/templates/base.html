@@ -7,12 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {{ current_user.username }} の {{ _("电影片单") }} </title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" />
     <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% endblock head %}
 </head>
 
 <body>
+    <!-- 标题 -->
     <h1 class="title">
         {{ current_user.username }} の {{ _("电影片单") }}
     </h1>
@@ -34,6 +37,7 @@
     {% endif %}
     {% endfor %}
 
+    <!-- 导航栏 -->
     <nav>
         <ul>
             <li><a href={{ url_for('index') }}> {{ _("主页") }} </a></li>
@@ -52,6 +56,7 @@
     {% block content %}
     {% endblock content %}
 
+    <!-- 页脚信息 -->
     <footer>
         <small>
             &copy; 2022
