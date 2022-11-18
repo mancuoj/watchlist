@@ -1,3 +1,7 @@
+<p align="right">
+    <a href="./README_zh.md">中</a> | English
+</p>
+
 <p align="center">
     <a href="https://mancuoj.pythonanywhere.com/" target="_blank">
         <img src="./assets/M.png" alt="logo" height="150"/>
@@ -5,11 +9,7 @@
 </p>
 
 
-<p align="center">
-    <a href="https://mancuoj.pythonanywhere.com/" target="_blank">Live Demo</a> |
-    <a href="#screenshots">Screenshots</a> |
-    <a href="./README_zh.md">中文文档</a>
-</p>
+
 
 
 ## Features
