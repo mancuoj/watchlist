@@ -1,15 +1,13 @@
+<p align="right">
+    <a href="./README.md">English</a> | 中
+</p>
+
 <p align="center">
     <a href="https://mancuoj.pythonanywhere.com/" target="_blank">
         <img src="./assets/M.png" alt="logo" height="150"/>
     </a>
 </p>
 
-<p align="center">
-    <a href="https://mancuoj.pythonanywhere.com/" target="_blank">在线查看</a> |
-    <a href="#截图">截图</a> |
-    <a href="https://tutorial.helloflask.com/deploy/" target="_blank">部署</a> |
-    <a href="./README.md">English</a>
-</p>
 
 
 ## 功能
@@ -53,5 +51,6 @@ flask run
 ## 感谢
 
 - [Flask 入门教程](https://tutorial.helloflask.com/)
+- [部署教程](https://tutorial.helloflask.com/deploy/)
 - [PythonAnywhere](https://www.pythonanywhere.com/)
 - ...
