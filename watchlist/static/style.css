@@ -113,7 +113,6 @@ footer a:hover {
     }
 }
 
-
 /****************************************************
 *                      表单                         * 
 ****************************************************/
@@ -198,59 +197,4 @@ footer a:hover {
 
 .del {
     display: none;
-}
-
-/****************************************************
-*                    留言板                         * 
-****************************************************/
-.comment-form {
-    height: 120px;
-}
-
-.comment-area {
-    width: 90%;
-    padding: 1.5rem;
-    border: none;
-    outline: none;
-    resize: none;
-
-    border-right: 2px solid black;
-    font-family: inherit;
-    font-size: 1.5rem;
-}
-
-.comment-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border: 2px solid #333;
-    border-top: none;
-}
-
-.comment-list li {
-    display: flex;
-    flex-direction: column;
-
-    padding: 1rem;
-    border-bottom: 1px solid #666;
-    font-size: 1.4rem;
-}
-
-.comment-list li:hover {
-    background-color: rgb(243, 243, 243);
-}
-
-.comment-name {
-    font-size: 1.8rem;
-    font-weight: bold;
-}
-
-.comment-index {
-    color: rgb(129, 129, 129);
-    font-size: 1.2rem;
-}
-
-.comment-body {
-    margin-top: 8px;
-    overflow-wrap: break-word;
 }

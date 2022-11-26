@@ -4,6 +4,7 @@ import sys
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_wtf import CSRFProtect
 from flask_babel import Babel, _
 
 WIN = sys.platform.startswith("win")
@@ -22,8 +23,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["LANGUAGES"] = ["en", "zh"]
 
 db = SQLAlchemy(app)
-
 babel = Babel(app)
+csrf = CSRFProtect(app)
 
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
